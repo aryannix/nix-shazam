@@ -1,0 +1,50 @@
+{
+  "name": "nix-shazam",
+  "version": "0.0.1",
+  "description": "Identify songs from audio or video files with Shazam, search songs and fetch track details",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "index.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "shazam",
+    "music",
+    "song",
+    "recognition",
+    "audio",
+    "fingerprint"
+  ],
+  "author": {
+    "name": "ArYAN",
+    "url": "https://github.com/aryannix"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aryannix/nix-shazam.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aryannix/nix-shazam/issues"
+  },
+  "homepage": "https://github.com/aryannix/nix-shazam#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "shazamio-core": "^1.3.1"
+  },
+  "optionalDependencies": {
+    "ffmpeg-static": "^5.2.0"
+  }
+}
