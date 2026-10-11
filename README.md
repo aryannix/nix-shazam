@@ -1,5 +1,9 @@
 # nix-shazam
 
+![npm version](https://img.shields.io/npm/v/nix-shazam)
+![license](https://img.shields.io/npm/l/nix-shazam)
+![node](https://img.shields.io/node/v/nix-shazam)
+
 Find out what song is playing from an audio or video file. Also search songs and get full track details, powered by Shazam.
 
 ```js
@@ -7,15 +11,49 @@ const { recognize } = require("nix-shazam");
 
 const result = await recognize("./clip.mp3");
 console.log(result.track.title, "-", result.track.artist);
+// Blinding Lights - The Weeknd
 ```
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Install](#install)
+- [Quick start](#quick-start)
+- [recognize](#recognizeinput-options)
+- [search](#searchquery-options)
+- [getTrack](#gettracktrackid-options)
+- [Handling errors](#handling-errors)
+- [Example: use with a bot](#example-use-with-a-bot)
+- [Project Structure](#project-structure)
+- [Dependencies](#dependencies)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
+- [License](#license)
+
+## Features
+
+- Identify a song from an audio file or a video file
+- Accepts a file path, a link, a Buffer, a Uint8Array or an ArrayBuffer
+- Tries more than one position in the file, so songs that start late are still found
+- Returns title, artist, album, label, release year, genre, cover image and music links
+- Search songs by name
+- Get full details of a song with its Shazam id
+- Works with both `require` (CommonJS) and `import` (ES Modules)
+- Simple results: a missing song gives `success: false`, it does not crash your code
+- No API key needed
+
+## Requirements
+
+- Node.js 18 or newer
+- An internet connection (the package talks to Shazam and the iTunes Search API)
+- npm or any other Node package manager
 
 ## Install
 
 ```bash
 npm install nix-shazam
 ```
-
-Requires Node.js 18 or newer.
 
 ## Quick start
 
@@ -52,11 +90,11 @@ Identifies a song from a short piece of audio or video.
 ### What you can pass as `input`
 
 ```js
-await recognize("./song.mp3");                 // file path
-await recognize("https://example.com/a.mp4");  // direct link
+await recognize("./song.mp3");                  // file path
+await recognize("https://example.com/a.mp4");   // direct link
 await recognize(fs.readFileSync("./song.mp3")); // Buffer
-await recognize(uint8Array);                   // Uint8Array
-await recognize(arrayBuffer);                  // ArrayBuffer
+await recognize(uint8Array);                    // Uint8Array
+await recognize(arrayBuffer);                   // ArrayBuffer
 ```
 
 Audio files and video files both work.
@@ -184,7 +222,7 @@ Returns an array (empty array if nothing is found):
 | `country` | `"US"` | Store country |
 | `language` | `"en-US"` | Language |
 
-`duration` is in milliseconds. `duration_formatted` is the same as `m:ss`.
+`duration` is in milliseconds. `duration_formatted` is the same time written as `m:ss`.
 
 ## getTrack(trackId, options?)
 
@@ -256,6 +294,47 @@ async function whatSong(buffer) {
 }
 ```
 
+## Project Structure
+
+```
+nix-shazam/
+├── index.js        Main code (CommonJS)
+├── index.mjs       ES Modules entry
+├── package.json    Package information
+├── LICENSE         MIT license
+└── README.md       Documentation
+```
+
+## Dependencies
+
+| Package | Type | Why it is used |
+| --- | --- | --- |
+| [shazamio-core](https://www.npmjs.com/package/shazamio-core) | required | Reads the audio and creates the signature that Shazam understands |
+| [ffmpeg-static](https://www.npmjs.com/package/ffmpeg-static) | optional | Adds support for more audio and video formats |
+
+Everything else (network requests, files) uses what is already built into Node.js.
+
+## Author
+
+**Aryan Mugdho**
+
+- GitHub: [github.com/aryannix](https://github.com/aryannix)
+- Instagram: [@aryannix07](https://instagram.com/aryannix07)
+
+## Acknowledgments
+
+- [ShazamIO](https://github.com/shazamio) and `shazamio-core` for the audio signature work this package builds on
+- [inrixia](https://github.com/inrixia/shazamio-core) for the WebAssembly port of `shazamio-core` used in Node.js
+- Shazam for the song recognition service
+- The iTunes Search API for song search
+- [ffmpeg-static](https://www.npmjs.com/package/ffmpeg-static) for the bundled media tools
+
+This is an unofficial package. It is not affiliated with Shazam or Apple.
+
 ## License
 
-MIT
+MIT. See the [LICENSE](LICENSE) file.
+
+---
+
+Made with 🤍 by Aryan Mugdho
